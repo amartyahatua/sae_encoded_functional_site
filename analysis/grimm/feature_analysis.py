@@ -1,39 +1,3 @@
-"""
-SAE FEATURE ANALYSIS — ESM-2 PER-RESIDUE REPRESENTATIONS
-==========================================================
-
-Analyzes trained TopK SAE features to understand what biological
-patterns each feature has learned. Produces:
-
-1. EC SPECIFICITY ANALYSIS
-   For each SAE feature, compute how specific it is to particular EC classes.
-   - General features: activate across all enzyme classes (e.g., "alpha helix detector")
-   - Discriminative features: activate primarily for specific EC classes
-   - Misleading features: correlate with EC but encode non-functional properties
-
-2. FEATURE TAXONOMY
-   Three-category classification based on EC mutual information:
-   - General: low MI with EC → structural/chemical features
-   - Discriminative: high MI with EC → functional features
-   - Misleading: moderate MI but low causal relevance → confounds
-
-3. RESIDUE-LEVEL MAPPING
-   Which amino acid positions activate each feature?
-   → Connects SAE features to catalytic sites, binding pockets, motifs
-
-Input:
-    - Trained SAE checkpoint (esm2_8M_layer5_dict16384_topk256.pt)
-    - Per-residue representations (residue_reprs_layer5.npy)
-    - Metadata with EC labels (metadata_layer5.json)
-
-Usage:
-    python feature_analysis.py
-    python feature_analysis.py --dict_size 8192 --top_k 256
-    python feature_analysis.py --max_proteins 10000
-
-Author: Amartya Hatua
-"""
-
 import numpy as np
 import torch
 import torch.nn as nn
@@ -54,7 +18,7 @@ RANDOM_STATE_SEED = 42
 
 
 # ============================================================
-# SAE MODEL (must match training)
+# SAE MODEL
 # ============================================================
 
 class TopKSAE(nn.Module):
@@ -473,20 +437,13 @@ def analyze_amino_acid_preferences(sae, reprs, metadata, device,
         if seq_len == 0:
             continue
 
-        # We need the original sequence to know amino acid identities
-        # The metadata doesn't store sequences, so we'll need to infer
-        # from the entry or load separately. For now, skip if not available.
-        # This can be enhanced by passing sequences from the GRIMM dataset.
-
         protein_reprs = torch.from_numpy(reprs[start:end]).float().to(device)
 
         for i in range(0, seq_len, batch_size):
             batch = protein_reprs[i:i + batch_size]
             acts = sae.encode(batch)  # (batch_len, dict_size)
 
-            # For each residue in batch, find active features
             active = (acts > 0).cpu()
-            # We'd map positions to amino acids here if sequences are available
 
     return aa_preferences
 
@@ -767,10 +724,7 @@ def main():
     print(f"    DEAD:           {lvl4['DEAD']['count']} ({lvl4['DEAD']['pct']}%)")
 
     print(f"\n  All results saved to: {results_dir}/")
-    print(f"\n  Next steps:")
-    print(f"    1. Examine discriminative_features.csv for EC-specific features")
-    print(f"    2. Cross-reference top features with known catalytic residues")
-    print(f"    3. Run on ESM-2 150M/650M to test scaling of taxonomy distribution")
+
 
 
 if __name__ == "__main__":
