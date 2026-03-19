@@ -135,9 +135,7 @@ openpyxl==3.1.5
 opt_einsum==3.4.0
 optree==0.17.0
 orjson==3.11.7
-packaging @ file:///private/var/folders/k1/30mswbxs7r1g6zwn8y4fyt500000gp/T/abs_b31rpdx1of/croot/packaging_1753775365574/work
 pandas==2.3.2
-pandas-stubs @ file:///private/var/folders/nz/j6p8yfhx1mv_0grj5xl4650h0000gp/T/abs_1e3tmh13y_/croot/pandas-stubs_1742460569340/work
 pandocfilters==1.5.1
 parso==0.8.5
 patsy==1.0.2
@@ -225,8 +223,6 @@ typeguard==4.4.4
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 tzdata==2025.2
-unsloth @ git+https://github.com/unslothai/unsloth.git@658a4703c5b7a3b3d3fc5b6c5b5ddc1e607f3b3b
-unsloth_zoo @ git+https://github.com/unslothai/unsloth_zoo.git@0215e91538fcb53de3315562792245f555d0820e
 uri-template==1.3.0
 urllib3==2.5.0
 wadler_lindig==0.1.7
