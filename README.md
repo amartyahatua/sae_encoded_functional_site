@@ -16,7 +16,7 @@ pip install -r requirements.txt
 bash layer_selection/grimm/run_esm2.sh
 ```
 
-Runs ESM-2 probing or per-residue extraction on the GRIMM dataset.
+Runs ESM-2 probing on the GRIMM dataset.
 Edit the variables at the top of the script to change model, layer, paths, or mode (`probe` / `extract`).
 
 ---
