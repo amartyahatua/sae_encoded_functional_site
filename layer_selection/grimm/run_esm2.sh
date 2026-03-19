@@ -8,9 +8,9 @@ MODEL_NAME=${MODEL_NAME:-"facebook/esm2_t6_8M_UR50D"}
 # ── Data ──────────────────────────────────────────────────────
 DATA_PATH=${DATA_PATH:-"../../data/grimm"}
 SPLIT=${SPLIT:-"train"}
-DATASET_SIZE=${DATASET_SIZE:-185419}
-MIN_CLASS_SIZE=${MIN_CLASS_SIZE:-2}
-MAX_SEQ_LEN=${MAX_SEQ_LEN:-512}
+DATASET_SIZE=${DATASET_SIZE:185419}
+MIN_CLASS_SIZE=${MIN_CLASS_SIZE:2}
+MAX_SEQ_LEN=${MAX_SEQ_LEN:512}
 
 # ── Extract mode ──────────────────────────────────────────────
 LAYER=${LAYER:-5}
